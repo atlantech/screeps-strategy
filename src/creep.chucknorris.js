@@ -3,21 +3,42 @@ var _ = require('lodash');
 module.exports = {
 
     run: function(creep) {
-        var target = creep.pos.findClosestByRange(FIND_SOURCES_ACTIVE),
-            storage;
+        var sources = creep.room.find(FIND_SOURCES_ACTIVE),
+            storage, target, result;
+
+        target = Memory.targetSources[creep.name];
+
+        if (!target) {
+            target = _.shuffle(sources)[0];
+
+            Memory.targetSources[creep.name] = target.id;
+
+            console.log('creep ' + creep.name + ' gets target source ' + target.id);
+        } else {
+            target = Game.getObjectById(target);
+        }
+
 
         if (target) {
             if (_.sum(creep.carry) === creep.carryCapacity) {
                 storage = Game.spawns['Spawn1'];
 
-                if (creep.transfer(storage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+                result = creep.transfer(storage, RESOURCE_ENERGY);
+
+                if (result === ERR_NOT_IN_RANGE) {
                     creep.moveTo(storage);
+                }
+
+                if (result === OK) {
+                    delete Memory.targetSources[creep.name];
                 }
 
                 return;
             }
 
-            if (creep.harvest(target) === ERR_NOT_IN_RANGE) {
+            result = creep.harvest(target);
+
+            if (result === ERR_NOT_IN_RANGE) {
                 creep.moveTo(target);
             }
         }

@@ -5,10 +5,9 @@ var chuck = require('creep.chucknorris'),
 
     Memory.targetSources = Memory.targetSources || {};
     Memory.targetEnemies = Memory.targetEnemies || {};
-<<<<<<< Updated upstream
-=======
     Memory.actions = Memory.actions || {};
->>>>>>> Stashed changes
+
+// TODO: initialaze game objects, strategies
 
 module.exports.loop = function () {
     'use strict';

@@ -1,14 +1,16 @@
 var _ = require('lodash');
 
+var Base = require('./creep.base');
+
 // almighty 
-var ChuckNorris = function(storag) {
-    this.storage = storage;
+var ChuckNorris = function(storage) {
+    Base.call(this, arguments);
 };
 
 module.exports = ChuckNorris;
 
 // Bug. Chuck hasn't prototype
-_.extend(ChuckNorris.prototype, {
+ChuckNorris.prototype = _.extend(ChuckNorris.prototype, Base.prototype {
 
     run: function(creep) {
         var enemies, action;
@@ -50,69 +52,8 @@ _.extend(ChuckNorris.prototype, {
         };
     },
 
-    requestHarvestAction: function(creep, target = null) {
-        return {
-            name: 'harvest',
-            owner: creep.id,
-            target: target,
-            priority: 0x10,
-            finished: false
-        };
-    },
-
-    setAction: function(action) {
-        this.storage.actions[action.owner] = action;
-    },
-
-    unsetAction(owner) {
-        delete this.storage.actions[owner.id];
-    },
-
-    getAction: function(owner) {
-        return this.storage.actions[owner.id];
-    },
-
     upgradeController: function() {
         // TODO
-    },
-
-    harvest: function(action, creep) {
-        var sources = creep.room.find(FIND_SOURCES_ACTIVE),
-            storage, target, result, action;
-
-        target = action.target;
-
-        if (!target) {
-            target = _.sample(sources);
-
-            action = this.requestHarvestAction(creep, target);
-
-            this.setAction(action);
-
-            creep.say('harvesting ' + target.id);
-        }
-
-        if (_.sum(creep.carry) === creep.carryCapacity) {
-            storage = Game.spawns['Spawn1'];
-
-            result = creep.transfer(storage, RESOURCE_ENERGY);
-
-            if (result === ERR_NOT_IN_RANGE) {
-                creep.moveTo(storage);
-            }
-
-            if (result === OK) {
-                delete this.storage.targetSources[creep.name];
-            }
-
-            return;
-        }
-
-        result = creep.harvest(target);
-
-        if (result === ERR_NOT_IN_RANGE) {
-            creep.moveTo(target);
-        }
     },
 
     attack: function(creep) {

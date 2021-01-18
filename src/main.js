@@ -25,7 +25,7 @@ module.exports.loop = function () {
         let action = actions[creepName];
 
         const onDone = function() {
-            console.info(`Creep ${action.getCreep()} finished action ${action.getName()}`)
+            console.log(`Creep ${action.getCreep()} finished action ${action.getName()}`)
 
             delete actions[creepName];
         }

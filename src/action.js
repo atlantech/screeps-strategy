@@ -17,7 +17,11 @@ class Action {
 
   run() {
     if (this.task) {
+      console.log(`Creep ${this.creep} performing a task "${this.name}"`);
+
       const done = this.task(this.creep, this.opts);
+
+      console.log(`Finished "${done}"`)
 
       if (done) {
         this.onDone();

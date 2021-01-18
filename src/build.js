@@ -1,3 +1,7 @@
+const harvest = require('./harvest');
+
+const ACTION = 'BUILD';
+
 module.exports = function build(creepName, {structureType}) {
   const creep = Game.creeps[creepName];
 
@@ -21,7 +25,15 @@ module.exports = function build(creepName, {structureType}) {
   if (target) {
     const result = creep.build(target, structureType);
 
+    console.log(`${ACTION} result: ${result}`);
+
+    if (result === ERR_NOT_ENOUGH_RESOURCES) {
+      return harvest(creepName);
+    }
+
     if(result === ERR_NOT_IN_RANGE) {
+      console.log(`Creep ${creepName}, action ${ACTION}, moving to ${target}`);
+
       creep.moveTo(target);
     }
 

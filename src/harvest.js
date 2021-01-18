@@ -1,5 +1,5 @@
 module.exports = function harvest(creepName) {
-  const creep = Game.creeps[creep];
+  const creep = Game.creeps[creepName];
 
   const sources = creep.room.find(FIND_SOURCES_ACTIVE);
 

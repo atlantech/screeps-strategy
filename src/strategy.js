@@ -7,11 +7,13 @@ const upgradeController = require('./upgradeController');
 
 
 module.exports = {
-  allocateAction: function(creep, onDone) {
+  allocateAction: function(creepName, onDone) {
+    const creep = Game.creeps[creepName];
+
     const enemies = creep.room.find(FIND_HOSTILE_CREEPS);
 
     if (enemies.length) {
-      return new Action('Attack enemy', creep, attack, onDone);
+      return new Action('Attack enemy', creepName, attack, onDone);
     }
 
     if(!creep.room.storage) {
@@ -22,12 +24,12 @@ module.exports = {
       if (!containers.length) {
         const structureType = creep.room.controller.level < 3 ? STRUCTURE_CONTAINER : STRUCTURE_STORAGE;
 
-        return new Action('Build', creep, build, onDone, {
+        return new Action('Build', creepName, build, onDone, {
           structureType
         })
       }
     }
 
-    return new Action('Upgrade controller', creep, upgradeController);
+    return new Action('Upgrade controller', creepName, upgradeController);
   }
 }

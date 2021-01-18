@@ -1,5 +1,5 @@
 module.exports = function build(creepName, {structureType}) {
-  const creep = Game.creeps[creep];
+  const creep = Game.creeps[creepName];
 
   let target = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
 

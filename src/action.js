@@ -1,10 +1,4 @@
 class Action {
-  name = null
-  creep = null
-  task = null
-  onDone = null
-  opts = null
-
   constructor(name, creep, task, onDone, opts) {
     this.name = name;
     this.creep = creep;

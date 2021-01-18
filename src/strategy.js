@@ -28,6 +28,6 @@ module.exports = {
       }
     }
 
-    return new Action('Upgrade controller', creep, upgradeController());
+    return new Action('Upgrade controller', creep, upgradeController);
   }
 }

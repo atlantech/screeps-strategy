@@ -16,12 +16,12 @@ function getEnemy(creep) {
 }
 
 module.exports = function attack(creepName) {
-  const creep = Game.creeps[creep];
+  const creep = Game.creeps[creepName];
 
   const target = getEnemy(creep);
 
   if (!target) {
-    delete Memory.targetEnemies[creep.name];
+    delete Memory.targetEnemies[creepName];
 
     return true;
   }

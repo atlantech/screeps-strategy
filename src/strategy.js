@@ -1,9 +1,9 @@
 const Action = require('./action');
 const utils = require('./utils')
-const attack = require('./tasks/attack');
-const harvest = require('./tasks/harvest');
-const build = require('./tasks/build');
-const upgradeController = require('./tasks/upgradeController');
+const attack = require('./attack');
+const harvest = require('./harvest');
+const build = require('./build');
+const upgradeController = require('./upgradeController');
 
 
 module.exports = {

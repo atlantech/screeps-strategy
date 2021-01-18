@@ -6,6 +6,8 @@ var spawn = require('structure.spawn');
     Memory.targetEnemies = Memory.targetEnemies || {};
     Memory.actions = Memory.actions || {};
 
+const strategy = require('./strategy');
+
 Room.prototype.getController = function() {
     const controllers = this.pos.find(FIND_STRUCTURES, {
         filter: (s) => s.structureType === STRUCTURE_CONTROLLER
